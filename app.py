@@ -1,33 +1,93 @@
-import streamlit as st
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>基本電學解題高手</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['"Noto Sans TC"', 'sans-serif'],
+              handwritten: ['"Ma Shan Zheng"', 'cursive'],
+            },
+            colors: {
+              paper: '#fdfbf7',
+              ink: '#2c3e50',
+              accent: '#e74c3c',
+              highlight: '#f1c40f',
+            }
+          },
+        },
+      }
+    </script>
+    <!-- MathJax for rendering LaTeX formulas -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [] // Disable display math to force inline logic where possible
+        },
+        svg: {
+          fontCache: 'global'
+        },
+        options: {
+           enableMenu: false
+        }
+      };
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+    </script>
+    <style>
+        body {
+            background-color: #f3f4f6;
+        }
+        /* Custom scrollbar for a notebook feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
+        }
 
-# 1. 設定網頁標題與寬度
-st.set_page_config(page_title="高工電路解析", layout="centered")
-
-# 2. 顯示標題
-st.title("🔌 直流電路解析小幫手")
-st.write("---")
-
-# 3. 模擬一個題目情境 (解決文字斷行問題的關鍵在這裡)
-st.subheader("題目解析：")
-
-# 老師請看：使用 LaTeX語法 (兩個錢字號包起來) 可以讓單位跟數字緊黏在一起，不會被斷行
-st.markdown("""
-根據克希荷夫電壓定律 (KVL)：
-1. 電路變成了左邊斷路，剩下右邊 $4V$ 電壓源與右邊 $2\Omega$ 電阻。
-2. 電流從 $4V$ 正極出發，流經右邊 $2\Omega$，再向下流經中間 $2\Omega$。
-""")
-
-st.info("💡 提示：利用 LaTeX 語法 `$數值單位$` 可以確保手機版面閱讀流暢。")
-
-# 4. 簡單的互動功能 (讓學生輸入數值)
-st.write("### 試算區")
-voltage = st.number_input("請輸入電壓 (V)", value=4.0, step=0.5)
-resistance = st.number_input("請輸入電阻 (Ω)", value=2.0, step=0.5)
-
-if st.button("計算電流"):
-    if resistance == 0:
-        st.error("電阻不能為 0！")
-    else:
-        current = voltage / resistance
-        # 這裡也用 LaTeX 顯示漂亮的數學式
-        st.success(f"計算結果：電流 $I = \\frac{{V}}{{R}} = \\frac{{{voltage}}}{{{resistance}}} = {current} A$")
+        /* Force MathJax to be inline to prevent block breaking */
+        mjx-container[display="true"], mjx-container {
+            display: inline-block !important;
+            margin: 0 2px !important;
+            vertical-align: middle !important;
+            width: auto !important;
+        }
+        
+        /* Ensure paragraph text flows correctly */
+        .prose p {
+            display: block;
+            margin-bottom: 1em;
+        }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react-markdown": "https://esm.sh/react-markdown@9?bundle"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
